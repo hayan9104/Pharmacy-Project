@@ -1,0 +1,1128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare Pharmacy - Your Health Partner</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> {% if contact_info %}{{ contact_info.phone_number }}{% else %}1800-123-4567{% endif %}</span>
+                    <span><i class="fas fa-envelope"></i> {% if contact_info %}{{ contact_info.email }}{% else %}support@medicare.com{% endif %}</span>
+                </div>
+                <div class="top-links">
+                    <a href="#"><i class="fas fa-map-marker-alt"></i> Store Locator</a>
+                   
+                    <a href="#"><i class="fas fa-user-md"></i> Talk to Expert</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-header">
+            <div class="container">
+                <div class="logo">
+                    <h1>MediCare</h1>
+                    <p>Your Health Partner</p>
+                </div>
+                
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for medicines, health products and more...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                
+                <div class="user-actions">
+                    <a href="#"><i class="fas fa-user"></i> Account</a>
+                    <a href="#"><i class="fas fa-heart"></i> Wishlist <span class="wishlist-count">0</span></a>
+                    <a href="#"><i class="fas fa-shopping-cart"></i> Cart <span class="cart-count">0</span></a>
+                </div>
+            </div>
+        </div>
+
+        <nav class="main-nav">
+            <div class="container">
+                <ul class="nav-links">
+                    {% for item in menu_items %}
+                        <li class="dropdown">
+                            <a href="#">{{ item.title }} <i class="fas fa-chevron-down"></i></a>
+                            <div class="dropdown-content">
+                                {% for section in sections %}
+                                    {% if section.menu_item == item %}
+                                        <div class="dropdown-section">
+                                            <h4>{{ section.title }}</h4>
+                                            <ul>
+                                                {% for link in links %}
+                                                    {% if link.section == section %}
+                                                        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Banner -->
+        <section class="hero-banner">
+            <div class="container">
+                <div class="hero-content">
+                    {% if hero %}
+                        <h2>{{ hero.title }}</h2>
+                        <p>{{ hero.subtitle }}</p>
+                        {% if hero.button_link %}
+                            <a href="{{ hero.button_link }}" class="btn-primary">{{ hero.button_text }}</a>
+                        {% else %}
+                            <button class="btn-primary">{{ hero.button_text }}</button>
+                        {% endif %}
+                    {% else %}
+                        <h2>Your Health, Our Priority</h2>
+                        <p>Get medicines delivered at your doorstep with exciting discounts</p>
+                        <a href="#" class="btn-primary">Shop Now</a>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                {% if features %}
+                    {% for feature in features %}
+                        <div class="feature-box">
+                            <i class="{{ feature.icon }}"></i>
+                            <h3>{{ feature.title }}</h3>
+                            <p>{{ feature.description }}</p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="feature-box">
+                        <i class="fas fa-pills"></i>
+                        <h3>100% Genuine Medicines</h3>
+                        <p>Authentic products, sourced directly from manufacturers</p>
+                    </div>
+                    <div class="feature-box">
+                        <i class="fas fa-truck"></i>
+                        <h3>Fast Delivery</h3>
+                        <p>Medicines delivered within 24-48 hours</p>
+                    </div>
+                    <div class="feature-box">
+                        <i class="fas fa-user-md"></i>
+                        <h3>Expert Consultation</h3>
+                        <p>Free consultation with certified pharmacists</p>
+                    </div>
+                    <div class="feature-box">
+                        <i class="fas fa-tags"></i>
+                        <h3>Amazing Offers</h3>
+                        <p>Special discounts and cashback offers</p>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- Advertisement Section -->
+        <section class="advertisement-section">
+            <div class="container">
+                <div class="ad-carousel">
+                    <div class="carousel-container">
+                        {% for ad in side_ads %}
+                            <div class="carousel-slide">
+                                <img src="{{ ad.image.url }}" alt="{{ ad.title }}">
+                            </div>
+                        {% empty %}
+                            <div class="carousel-slide">
+                                <img src="https://img.freepik.com/free-photo/vitamin-d-supplements-with-healthy-food_23-2148849953.jpg" alt="Vitamin Offer">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://img.freepik.com/free-photo/doctor-measuring-patient-s-blood-pressure_23-2148869686.jpg" alt="Diabetes Care">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://img.freepik.com/free-photo/medical-banner-with-doctor-working-hospital_23-2149611193.jpg" alt="Health Checkup">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://img.freepik.com/free-photo/young-woman-pharmacist-pharmacy_23-2148963450.jpg" alt="Pharmacy">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://img.freepik.com/free-photo/medical-equipment-pharmacy_23-2148849952.jpg" alt="Medical Equipment">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://img.freepik.com/free-photo/doctor-examining-baby_23-2148869687.jpg" alt="Baby Care">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <button class="carousel-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="carousel-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                    <div class="carousel-dots">
+                        {% for ad in side_ads %}
+                            <span class="dot"></span>
+                        {% empty %}
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousel = document.querySelector('.carousel-container');
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.dot');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            
+            let currentSlide = 0;
+            const slideCount = slides.length;
+            
+            // Calculate slides per view based on screen width
+            function getSlidesPerView() {
+                if (window.innerWidth > 1024) return 3;
+                if (window.innerWidth > 768) return 2;
+                return 1;
+            }
+            
+            let slidesPerView = getSlidesPerView();
+            
+            // Initialize dots
+            updateDots();
+            
+            // Function to update carousel position
+            function updateCarousel() {
+                const slideWidth = 400 / slidesPerView;
+                const offset = (currentSlide * slideWidth) / (slideCount - slidesPerView + 1);
+                carousel.style.transform = `translateX(-${offset}%)`;
+                updateDots();
+            }
+            
+            // Function to update dots
+            function updateDots() {
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === Math.floor(currentSlide / slidesPerView));
+                });
+            }
+            
+            // Next slide
+            function nextSlide() {
+                if (currentSlide < slideCount - slidesPerView) {
+                    currentSlide++;
+                    updateCarousel();
+                } else {
+                    // Loop back to start with smooth transition
+                    currentSlide = 0;
+                    updateCarousel();
+                }
+            }
+            
+            // Previous slide
+            function prevSlide() {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateCarousel();
+                } else {
+                    // Loop to end with smooth transition
+                    currentSlide = slideCount - slidesPerView;
+                    updateCarousel();
+                }
+            }
+            
+            // Event listeners
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            
+            // Dot navigation
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    currentSlide = index * slidesPerView;
+                    if (currentSlide > slideCount - slidesPerView) {
+                        currentSlide = slideCount - slidesPerView;
+                    }
+                    updateCarousel();
+                });
+            });
+            
+            // Auto slide
+            let slideInterval = setInterval(nextSlide, 3000); // Change slide every 3 seconds
+            
+            // Pause on hover
+            carousel.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+            });
+            
+            carousel.addEventListener('mouseleave', () => {
+                slideInterval = setInterval(nextSlide, 3000);
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                const newSlidesPerView = getSlidesPerView();
+                if (newSlidesPerView !== slidesPerView) {
+                    slidesPerView = newSlidesPerView;
+                    currentSlide = 0;
+                    updateCarousel();
+                }
+            });
+            
+            // Initial update
+            updateCarousel();
+        });
+        </script>
+
+        <!-- Categories Section -->
+        <section class="product-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Shop by Categories</h2>
+                  <!--  <a href="#" class="view-all">View All</a>-->
+                </div>
+                <div class="category-grid">
+                    {% for category in categories %}
+                        <div class="category-card">
+                            <div class="category-img">
+                                <img src="{{ category.image.url }}" alt="{{ category.title }}">
+                            </div>
+                            <h3>{{ category.title }}</h3>
+                        </div>
+                    {% empty %}
+                        <div class="category-card">
+                            <div class="category-img">
+                                <img src="https://img.freepik.com/free-photo/medical-banner-with-doctor-working-hospital_23-2149611193.jpg" alt="Medicines">
+                            </div>
+                            <h3>Medicines</h3>
+                        </div>
+                        <div class="category-card">
+                            <div class="category-img">
+                                <img src="https://img.freepik.com/free-photo/doctor-measuring-patient-s-blood-pressure_23-2148869686.jpg" alt="Health Conditions">
+                            </div>
+                            <h3>Health Conditions</h3>
+                        </div>
+                        <div class="category-card">
+                            <div class="category-img">
+                                <img src="https://img.freepik.com/free-photo/vitamin-d-supplements-with-healthy-food_23-2148849953.jpg" alt="Health Essentials">
+                            </div>
+                            <h3>Health Essentials</h3>
+                        </div>
+                        <div class="category-card">
+                            <div class="category-img">
+                                <img src="https://img.freepik.com/free-photo/young-woman-pharmacist-pharmacy_23-2148963450.jpg" alt="Women's Care">
+                            </div>
+                            <h3>Women's Care</h3>
+                        </div>
+                        <div class="category-card">
+                            <div class="category-img">
+                                <img src="https://img.freepik.com/free-photo/doctor-examining-baby_23-2148869687.jpg" alt="Baby Care">
+                            </div>
+                            <h3>Baby Care</h3>
+                        </div>
+                        <div class="category-card">
+                            <div class="category-img">
+                                <img src="https://img.freepik.com/free-photo/medical-equipment-pharmacy_23-2148849952.jpg" alt="Healthcare Devices">
+                            </div>
+                            <h3>Healthcare Devices</h3>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Products Section -->
+        <section class="product-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Popular Products</h2>
+                    <a href="#" class="view-all">View All</a>
+                </div>
+                
+                <div class="product-grid">
+                    <div class="product-card" data-product-id="1">
+                        <div class="product-badge">20% OFF</div>
+                        <div class="wishlist-icon"><i class="far fa-heart"></i></div>
+                        <div class="product-img">
+                            <img src="https://img.freepik.com/free-photo/medical-banner-with-doctor-working-hospital_23-2149611193.jpg" alt="Paracetamol Tablets">
+                        </div>
+                        <div class="product-details">
+                            <div class="brand">Cipla</div>
+                            <h3>Paracetamol Tablets</h3>
+                            <div class="pack-size">Strip of 10 Tablets</div>
+                            <div class="price">
+                                <span class="current-price">₹25</span>
+                                <span class="original-price">₹30</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="add-to-cart-btn">Add to Cart</button>
+                                <div class="quantity-controls" style="display: none;">
+                                    <button class="quantity-btn minus">-</button>
+                                    <span class="quantity-display">1</span>
+                                    <button class="quantity-btn plus">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card" data-product-id="2">
+                        <div class="product-badge">15% OFF</div>
+                        <div class="wishlist-icon"><i class="far fa-heart"></i></div>
+                        <div class="product-img">
+                            <img src="https://img.freepik.com/free-photo/vitamin-d-supplements-with-healthy-food_23-2148849953.jpg" alt="Ashwagandha Tablets">
+                        </div>
+                        <div class="product-details">
+                            <div class="brand">Himalaya</div>
+                            <h3>Ashwagandha Tablets</h3>
+                            <div class="pack-size">Bottle of 60 Tablets</div>
+                            <div class="price">
+                                <span class="current-price">₹180</span>
+                                <span class="original-price">₹210</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="add-to-cart-btn">Add to Cart</button>
+                                <div class="quantity-controls" style="display: none;">
+                                    <button class="quantity-btn minus">-</button>
+                                    <span class="quantity-display">1</span>
+                                    <button class="quantity-btn plus">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card" data-product-id="3">
+                        <div class="product-badge">10% OFF</div>
+                        <div class="wishlist-icon"><i class="far fa-heart"></i></div>
+                        <div class="product-img">
+                            <img src="https://img.freepik.com/free-photo/medical-equipment-pharmacy_23-2148849952.jpg" alt="Blood Pressure Monitor">
+                        </div>
+                        <div class="product-details">
+                            <div class="brand">Dr. Morepen</div>
+                            <h3>Blood Pressure Monitor</h3>
+                            <div class="pack-size">1 Unit</div>
+                            <div class="price">
+                                <span class="current-price">₹1799</span>
+                                <span class="original-price">₹1999</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="add-to-cart-btn">Add to Cart</button>
+                                <div class="quantity-controls" style="display: none;">
+                                    <button class="quantity-btn minus">-</button>
+                                    <span class="quantity-display">1</span>
+                                    <button class="quantity-btn plus">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card" data-product-id="4">
+                        <div class="product-badge">25% OFF</div>
+                        <div class="wishlist-icon"><i class="far fa-heart"></i></div>
+                        <div class="product-img">
+                            <img src="https://img.freepik.com/free-photo/young-woman-pharmacist-pharmacy_23-2148963450.jpg" alt="Baby Soap">
+                        </div>
+                        <div class="product-details">
+                            <div class="brand">Johnson & Johnson</div>
+                            <h3>Baby Soap</h3>
+                            <div class="pack-size">75g</div>
+                            <div class="price">
+                                <span class="current-price">₹60</span>
+                                <span class="original-price">₹80</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="add-to-cart-btn">Add to Cart</button>
+                                <div class="quantity-controls" style="display: none;">
+                                    <button class="quantity-btn minus">-</button>
+                                    <span class="quantity-display">1</span>
+                                    <button class="quantity-btn plus">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Second Advertisement Section -->
+        <section class="advertisement-section style-2">
+            <div class="container">
+                <div class="full-width-ad">
+                    {% for ad in side_ads2 %}
+                        <div class="ad-content-2">
+                            <span class="ad-tag">Special Offer</span>
+                            <h3>{{ ad.title }}</h3>
+                            {% if ad.subtitle %}
+                                <p class="subtitle">{{ ad.subtitle }}</p>
+                            {% endif %}
+                            {% if ad.description %}
+                                <div class="description">{{ ad.description }}</div>
+                            {% endif %}
+                            <a href="{{ ad.button_link }}" class="btn-primary">{{ ad.button_text }}</a>
+                        </div>
+                        <div class="ad-image-2">
+                            <img src="{{ ad.image.url }}" alt="{{ ad.title }}">
+                        </div>
+                    {% empty %}
+                        <div class="ad-content-2">
+                            <span class="ad-tag">Special Offer</span>
+                            <h3>Summer Health Festival</h3>
+                            <p class="subtitle">Get up to 50% off on all health products</p>
+                            <div class="description">
+                                <ul class="offer-list">
+                                    <li><i class="fas fa-check"></i> Free delivery on all orders</li>
+                                    <li><i class="fas fa-check"></i> Extra 15% off on first purchase</li>
+                                    <li><i class="fas fa-check"></i> Free health consultation</li>
+                                </ul>
+                            </div>
+                            <a href="#" class="btn-primary">Shop Now</a>
+                        </div>
+                        <div class="ad-image-2">
+                            <img src="https://img.freepik.com/free-photo/medical-banner-with-doctor-working-hospital_23-2149611193.jpg" alt="Summer Health Festival">
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+       
+
+        <!-- Top Brands Section -->
+        <section class="product-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Top Brands</h2>
+                    <a href="#" class="view-all">View All</a>
+                </div>
+                <div class="category-grid">
+                    {% for brand in brands %}
+                        <div class="category-card">
+                            <div class="category-img">
+                                <img src="{{ brand.logo.url }}" alt="{{ brand.name }}">
+                            </div>
+                            <h3>{{ brand.name }}</h3>
+                        </div>
+                    {% empty %}
+                        <div class="category-card">
+                            <div class="category-img">
+                                <img src="https://img.freepik.com/free-photo/medical-banner-with-doctor-working-hospital_23-2149611193.jpg" alt="Cipla">
+                            </div>
+                            <h3>Cipla</h3>
+                        </div>
+                        <div class="category-card">
+                            <div class="category-img">
+                                <img src="https://img.freepik.com/free-photo/doctor-measuring-patient-s-blood-pressure_23-2148869686.jpg" alt="Sun Pharma">
+                            </div>
+                            <h3>Sun Pharma</h3>
+                        </div>
+                        <div class="category-card">
+                            <div class="category-img">
+                                <img src="https://img.freepik.com/free-photo/vitamin-d-supplements-with-healthy-food_23-2148849953.jpg" alt="Dr. Reddy's">
+                            </div>
+                            <h3>Dr. Reddy's</h3>
+                        </div>
+                        <div class="category-card">
+                            <div class="category-img">
+                                <img src="https://img.freepik.com/free-photo/young-woman-pharmacist-pharmacy_23-2148963450.jpg" alt="Himalaya">
+                            </div>
+                            <h3>Himalaya</h3>
+                        </div>
+                        <div class="category-card">
+                            <div class="category-img">
+                                <img src="https://img.freepik.com/free-photo/doctor-examining-baby_23-2148869687.jpg" alt="Johnson & Johnson">
+                            </div>
+                            <h3>Johnson & Johnson</h3>
+                        </div>
+                        <div class="category-card">
+                            <div class="category-img">
+                                <img src="https://img.freepik.com/free-photo/medical-equipment-pharmacy_23-2148849952.jpg" alt="Abbott">
+                            </div>
+                            <h3>Abbott</h3>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Health Articles Section -->
+        <section class="product-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Health Articles</h2>
+                    <a href="#" class="view-all">View All</a>
+                </div>
+                <div class="articles-grid">
+                    <div class="article-card">
+                        <div class="article-img">
+                            <img src="https://img.freepik.com/free-photo/doctor-measuring-patient-s-blood-pressure_23-2148869686.jpg" alt="Understanding Diabetes">
+                        </div>
+                        <div class="article-content">
+                            <h3>Understanding Diabetes: Symptoms, Causes and Management</h3>
+                            <p>Learn about the symptoms of diabetes, its causes, and how to manage it effectively...</p>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                    <div class="article-card">
+                        <div class="article-img">
+                            <img src="https://img.freepik.com/free-photo/vitamin-d-supplements-with-healthy-food_23-2148849953.jpg" alt="Importance of Vitamins">
+                        </div>
+                        <div class="article-content">
+                            <h3>The Importance of Vitamins and Minerals in Your Diet</h3>
+                            <p>Discover why vitamins and minerals are essential for your health and wellbeing...</p>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                    <div class="article-card">
+                        <div class="article-img">
+                            <img src="https://img.freepik.com/free-photo/medical-banner-with-doctor-working-hospital_23-2149611193.jpg" alt="Managing Hypertension">
+                        </div>
+                        <div class="article-content">
+                            <h3>Managing Hypertension: Tips for a Healthy Heart</h3>
+                            <p>Find out how to keep your blood pressure in check with these helpful tips...</p>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-col">
+                    <h3>Download Our Mobile App</h3>
+                    <p>Get exclusive app-only offers and manage your orders on the go</p>
+                        <div class="app-buttons">
+                            <a href="#" class="app-btn">
+                                <img src="doc.jpeg.jpg.jpeg" alt="Google Play">
+                            </a>
+                            <a href="#" class="app-btn">
+                                <img src="/api/placeholder/150/50" alt="App Store">
+                            </a>
+                        </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> {% if contact_info %}{{ contact_info.address }}{% else %}123 Health Street, Wellness City - 110001{% endif %}</p>
+                    <p><i class="fas fa-phone"></i> {% if contact_info %}{{ contact_info.phone_number }}{% else %}1800-123-4567{% endif %}</p>
+                    <p><i class="fas fa-envelope"></i> {% if contact_info %}{{ contact_info.email }}{% else %}support@medicare.com{% endif %}</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="footer-bottom">
+                <div class="payment-methods">
+                    <span>We Accept:</span>
+                    <img src="/api/placeholder/300/50" alt="Payment Methods">
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2025 MediCare Pharmacy. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Filter Modal -->
+    <div class="filter-modal" id="filterModal">
+        <div class="filter-content">
+            <div class="filter-header">
+                <h3>Filter Products</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="filter-body">
+                <div class="filter-section">
+                    <h4>Brand</h4>
+                    <div class="filter-options">
+                        <label><input type="checkbox"> Cipla</label>
+                        <label><input type="checkbox"> Sun Pharma</label>
+                        <label><input type="checkbox"> Dr. Reddy's</label>
+                        <label><input type="checkbox"> Himalaya</label>
+                        <label><input type="checkbox"> Zydus Cadila</label>
+                        <label><input type="checkbox"> Abbott</label>
+                        <label><input type="checkbox"> Johnson & Johnson</label>
+                        <label><input type="checkbox"> Patanjali</label>
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <h4>Price Range</h4>
+                    <div class="price-slider">
+                        <input type="range" min="0" max="5000" value="2500" class="slider" id="priceRange">
+                        <div class="price-range-values">
+                            <span>₹0</span>
+                            <span id="priceValue">₹2500</span>
+                            <span>₹5000</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <h4>Discount</h4>
+                    <div class="filter-options">
+                        <label><input type="checkbox"> 10% and above</label>
+                        <label><input type="checkbox"> 20% and above</label>
+                        <label><input type="checkbox"> 30% and above</label>
+                        <label><input type="checkbox"> 40% and above</label>
+                        <label><input type="checkbox"> 50% and above</label>
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <h4>Categories</h4>
+                    <div class="filter-options">
+                        <label><input type="checkbox"> Prescription Medicines</label>
+                        <label><input type="checkbox"> OTC Medicines</label>
+                        <label><input type="checkbox"> Ayurvedic</label>
+                        <label><input type="checkbox"> Homeopathic</label>
+                        <label><input type="checkbox"> Healthcare Devices</label>
+                        <label><input type="checkbox"> Personal Care</label>
+                        <label><input type="checkbox"> Baby Care</label>
+                        <label><input type="checkbox"> Women's Care</label>
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <h4>Health Conditions</h4>
+                    <div class="filter-options">
+                        <label><input type="checkbox"> Diabetes</label>
+                        <label><input type="checkbox"> Hypertension</label>
+                        <label><input type="checkbox"> Heart</label>
+                        <label><input type="checkbox"> Thyroid</label>
+                        <label><input type="checkbox"> Arthritis</label>
+                        <label><input type="checkbox"> Asthma</label>
+                        <label><input type="checkbox"> Digestive Health</label>
+                        <label><input type="checkbox"> Pain Relief</label>
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <h4>Rating</h4>
+                    <div class="filter-options">
+                        <label><input type="checkbox"> 4★ & above</label>
+                        <label><input type="checkbox"> 3★ & above</label>
+                        <label><input type="checkbox"> 2★ & above</label>
+                        <label><input type="checkbox"> 1★ & above</label>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-footer">
+                <button class="btn-reset">Reset All</button>
+                <button class="btn-apply">Apply Filters</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Prescription Upload Modal -->
+    <div class="modal" id="prescriptionModal">
+        <div class="modal-content">
+            
+            <div class="modal-body">
+                <div class="upload-area">
+                    <i class="fas fa-file-upload"></i>
+                    <h4>Drag & Drop or Click to Upload</h4>
+                    <p>Upload your prescription to order medicines</p>
+                    <input type="file" id="prescriptionFile" accept="image/*,.pdf" multiple>
+                    <button class="btn-upload">Select Files</button>
+                </div>
+                <div class="upload-instructions">
+                    <h4>Instructions:</h4>
+                    <ul>
+                        <li>Upload clear image of your prescription</li>
+                        <li>Accepted formats: JPEG, PNG, PDF</li>
+                        <li>Maximum file size: 10MB</li>
+                        <li>You can upload multiple prescriptions</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary">Submit Prescription</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div class="modal" id="quickViewModal">
+        <div class="modal-content product-view-content">
+            <div class="modal-header">
+                <h3>Product Quick View</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="product-view-container">
+                    <div class="product-view-image">
+                        <img src="/api/placeholder/400/400" alt="Product Image">
+                    </div>
+                    <div class="product-view-details">
+                        <div class="product-brand">Cipla</div>
+                        <h2 class="product-title">Paracetamol 500mg Tablets</h2>
+                        <div class="product-rating">
+                            <span class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </span>
+                            <span class="rating-count">(243 Reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">₹25</span>
+                            <span class="original-price">₹30</span>
+                            <span class="discount-percentage">(-16.67%)</span>
+                        </div>
+                        <div class="product-description">
+                            <p>Paracetamol (Acetaminophen) 500mg is used to relieve mild to moderate pain and to reduce fever. It is used for the relief of mild to moderate pain such as headache, backache, period pain and toothache.</p>
+                        </div>
+                        <div class="product-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">SKU:</span>
+                                <span class="meta-value">MED0012345</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Pack Size:</span>
+                                <span class="meta-value">Strip of 10 Tablets</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Composition:</span>
+                                <span class="meta-value">Paracetamol 500mg</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Prescription Required:</span>
+                                <span class="meta-value">No</span>
+                            </div>
+                        </div>
+                        <div class="product-quantity">
+                            <span class="quantity-label">Quantity:</span>
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" value="1" min="1" max="10">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn-add-to-cart"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                            <button class="btn-buy-now">Buy Now</button>
+                            <button class="btn-wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                        <div class="product-offers">
+                            <h4>Available Offers:</h4>
+                            <ul>
+                                <li><i class="fas fa-tag"></i> Get 5% cashback on prepaid orders</li>
+                                <li><i class="fas fa-tag"></i> Free delivery on orders above ₹499</li>
+                                <li><i class="fas fa-tag"></i> Use code HEALTH10 for extra 10% off</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Results Overlay -->
+    <div class="search-results-overlay" id="searchResultsOverlay">
+        <div class="search-results-container">
+            <div class="search-results-header">
+                <h3>Search Results</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="search-results-body">
+                <div class="search-categories">
+                    <button class="search-category-btn active">All</button>
+                    <button class="search-category-btn">Medicines</button>
+                    <button class="search-category-btn">Healthcare Products</button>
+                    <button class="search-category-btn">Brands</button>
+                </div>
+                <div class="search-results-list">
+                    <div class="search-result-item">
+                        <div class="result-img">
+                            <img src="/api/placeholder/60/60" alt="Paracetamol">
+                        </div>
+                        <div class="result-info">
+                            <h4>Paracetamol 500mg</h4>
+                            <div class="result-meta">
+                                <span class="result-brand">Cipla</span>
+                                <span class="result-price">₹25</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-result-item">
+                        <div class="result-img">
+                            <img src="/api/placeholder/60/60" alt="Paracetamol Syrup">
+                        </div>
+                        <div class="result-info">
+                            <h4>Paracetamol Syrup 60ml</h4>
+                            <div class="result-meta">
+                                <span class="result-brand">Abbott</span>
+                                <span class="result-price">₹45</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-result-item">
+                        <div class="result-img">
+                            <img src="/api/placeholder/60/60" alt="Dolo">
+                        </div>
+                        <div class="result-info">
+                            <h4>Dolo 650mg</h4>
+                            <div class="result-meta">
+                                <span class="result-brand">Micro Labs</span>
+                                <span class="result-price">₹30</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-result-item">
+                        <div class="result-img">
+                            <img src="/api/placeholder/60/60" alt="Crocin">
+                        </div>
+                        <div class="result-info">
+                            <h4>Crocin Advance 500mg</h4>
+                            <div class="result-meta">
+                                <span class="result-brand">GSK</span>
+                                <span class="result-price">₹35</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-suggestions">
+                    <h4>Popular Searches:</h4>
+                    <div class="suggestion-tags">
+                        <a href="#" class="suggestion-tag">Paracetamol</a>
+                        <a href="#" class="suggestion-tag">Vitamin D</a>
+                        <a href="#" class="suggestion-tag">Diabetes</a>
+                        <a href="#" class="suggestion-tag">Covid Test</a>
+                        <a href="#" class="suggestion-tag">Blood Pressure</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Basic JavaScript for interactive elements
+document.addEventListener('DOMContentLoaded', function() {
+    // Filter button functionality
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+    
+    // Price range slider
+    const priceRange = document.getElementById('priceRange');
+    const priceValue = document.getElementById('priceValue');
+    if(priceRange && priceValue) {
+        priceRange.addEventListener('input', function() {
+            priceValue.textContent = `₹${this.value}`;
+        });
+    }
+    
+    // Product quantity selector
+    const minusBtns = document.querySelectorAll('.quantity-btn.minus');
+    const plusBtns = document.querySelectorAll('.quantity-btn.plus');
+    
+    minusBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const input = this.nextElementSibling;
+            let value = parseInt(input.value);
+            if(value > input.min) {
+                input.value = value - 1;
+            }
+        });
+    });
+    
+    plusBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const input = this.previousElementSibling;
+            let value = parseInt(input.value);
+            if(value < input.max) {
+                input.value = value + 1;
+            }
+        });
+    });
+});
+
+// Cart and Wishlist functionality
+let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+let wishlistItems = JSON.parse(localStorage.getItem('wishlistItems')) || [];
+
+// Update cart and wishlist counts
+function updateCounts() {
+    const cartCount = document.querySelector('.cart-count');
+    const wishlistCount = document.querySelector('.wishlist-count');
+    
+    if (cartCount) {
+        cartCount.textContent = cartItems.reduce((total, item) => total + item.quantity, 0);
+    }
+    if (wishlistCount) {
+        wishlistCount.textContent = wishlistItems.length;
+    }
+}
+
+// Show notification
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+// Toggle wishlist functionality
+function toggleWishlist(productId) {
+    const productCard = document.querySelector(`.product-card[data-product-id="${productId}"]`);
+    if (!productCard) return;
+
+    const wishlistIcon = productCard.querySelector('.wishlist-icon i');
+    const isInWishlist = wishlistItems.some(item => item.id === productId);
+
+    if (isInWishlist) {
+        wishlistItems = wishlistItems.filter(item => item.id !== productId);
+        wishlistIcon.classList.remove('fas');
+        wishlistIcon.classList.add('far');
+        showNotification('Product removed from wishlist!');
+    } else {
+        const product = {
+            id: productId,
+            name: productCard.querySelector('h3').textContent,
+            brand: productCard.querySelector('.brand').textContent,
+            price: parseFloat(productCard.querySelector('.current-price').textContent.replace('₹', '')),
+            image: productCard.querySelector('.product-img img').src
+        };
+        wishlistItems.push(product);
+        wishlistIcon.classList.remove('far');
+        wishlistIcon.classList.add('fas');
+        showNotification('Product added to wishlist!');
+    }
+
+    localStorage.setItem('wishlistItems', JSON.stringify(wishlistItems));
+    updateCounts();
+}
+
+// Add to cart functionality
+function addToCart(product) {
+    const existingItem = cartItems.find(item => item.id === product.id);
+    
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cartItems.push({ ...product, quantity: 1 });
+    }
+    
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    updateCounts();
+    showNotification('Product added to cart!');
+    updateProductCardUI(product.id);
+}
+
+// Update product card UI
+function updateProductCardUI(productId) {
+    const productCard = document.querySelector(`.product-card[data-product-id="${productId}"]`);
+    if (!productCard) return;
+
+    const addToCartBtn = productCard.querySelector('.add-to-cart-btn');
+    const quantityControls = productCard.querySelector('.quantity-controls');
+    const quantityDisplay = productCard.querySelector('.quantity-display');
+    
+    const cartItem = cartItems.find(item => item.id === productId);
+    
+    if (cartItem) {
+        addToCartBtn.style.display = 'none';
+        quantityControls.style.display = 'flex';
+        quantityDisplay.textContent = cartItem.quantity;
+    } else {
+        addToCartBtn.style.display = 'block';
+        quantityControls.style.display = 'none';
+    }
+}
+
+// Update quantity functionality
+function updateQuantity(productId, change) {
+    const cartItem = cartItems.find(item => item.id === productId);
+    
+    if (cartItem) {
+        cartItem.quantity += change;
+        
+        if (cartItem.quantity <= 0) {
+            cartItems = cartItems.filter(item => item.id !== productId);
+        }
+        
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        updateCounts();
+        updateProductCardUI(productId);
+        showNotification(change > 0 ? 'Product added to cart!' : 'Product removed from cart!');
+    }
+}
+
+// Initialize counts and UI on page load
+document.addEventListener('DOMContentLoaded', function() {
+    updateCounts();
+    
+    // Add event listeners to all "Add to Cart" buttons
+    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const productCard = this.closest('.product-card');
+            const product = {
+                id: productCard.dataset.productId,
+                name: productCard.querySelector('h3').textContent,
+                brand: productCard.querySelector('.brand').textContent,
+                price: parseFloat(productCard.querySelector('.current-price').textContent.replace('₹', '')),
+                image: productCard.querySelector('.product-img img').src
+            };
+            addToCart(product);
+        });
+    });
+
+    // Add event listeners to quantity controls
+    document.querySelectorAll('.quantity-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const productCard = this.closest('.product-card');
+            const productId = productCard.dataset.productId;
+            const change = this.classList.contains('plus') ? 1 : -1;
+            updateQuantity(productId, change);
+        });
+    });
+
+    // Add event listeners to wishlist icons
+    document.querySelectorAll('.wishlist-icon').forEach(icon => {
+        icon.addEventListener('click', function() {
+            const productCard = this.closest('.product-card');
+            const productId = productCard.dataset.productId;
+            toggleWishlist(productId);
+        });
+    });
+
+    // Initialize product card UI for items in cart and wishlist
+    cartItems.forEach(item => {
+        updateProductCardUI(item.id);
+    });
+
+    // Initialize wishlist icons
+    wishlistItems.forEach(item => {
+        const productCard = document.querySelector(`.product-card[data-product-id="${item.id}"]`);
+        if (productCard) {
+            const wishlistIcon = productCard.querySelector('.wishlist-icon i');
+            wishlistIcon.classList.remove('far');
+            wishlistIcon.classList.add('fas');
+        }
+    });
+});
+
+
+    </script>
+</body>
+</html>
