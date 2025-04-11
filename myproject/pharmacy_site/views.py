@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import ContactInfo, MenuItem, MenuSection, MenuLink, Hero, Feature, Advertisement, Category, Advertisement2, Brand
 
-def home(request):
+def index(request):
     # Get active contact info
     contact_info = ContactInfo.objects.filter(is_active=True).first()
     
@@ -41,7 +41,7 @@ def home(request):
         'brands': brands,
     }
     
-    return render(request, 'pharmacy_site/home.html', context)
+    return render(request, 'pharmacy_site/index.html', context)
 
 
 
