@@ -9,7 +9,7 @@ Technologies Used
 Frontend:
 - HTML5, CSS3, JavaScript
 Backend:
-- Python with Flask framework
+- Python with Django framework
 Database:
 - SQLite
 Installation
