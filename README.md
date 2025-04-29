@@ -6,9 +6,9 @@ Features
 • Customer Management: Store and manage customer information, including purchase history.
 • Reporting: Generate reports on sales, inventory status, and customer interactions.
 Technologies Used
-Frontend:
+
 - HTML5, CSS3, JavaScript
-Backend:
+
 - Python with Django framework
-Database:
+
 - MY SQL
